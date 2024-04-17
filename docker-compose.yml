@@ -1,18 +1,18 @@
 version: "1.0.0"
 services:
-  ginfo-postgres-db:
+  post-postgres-db:
     image: postgres
-    container_name: ginfo-postgres-db
+    container_name: post-postgres-db
     env_file:
       - .env
     ports:
       - '5433:5432'
     networks:
-      - ginfo-net
+      - post-net
     restart: always
-  ginfo-service:
-    image: ginfo-service:1.0.0
-    container_name: ginfo-service
+  post-service:
+    image: post-service:1.0.0
+    container_name: post-service
     build:
       context: .
       dockerfile: Dockerfile
@@ -22,11 +22,11 @@ services:
       - '8081:8081'
       - '5005:5005'
     networks:
-      - ginfo-net
+      - post-net
     depends_on:
-      - ginfo-postgres-db
+      - post-postgres-db
 networks:
-  ginfo-net:
-    name: ginfo-net
+  post-net:
+    name: post-net
     attachable: true
     driver: bridge
