@@ -1,4 +1,4 @@
-package ctu.cit.se.generalinformation.migrations;
+package ctu.cit.se.post_service.migrations;
 
 import java.util.List;
 

@@ -23,8 +23,10 @@ public class Tag {
     private UUID id;
     @Column(name = "tag_title")
     private String title;
+    @Column(name = "tag_code")
+    private String code;
     @Column(name = "tag_description")
-    private String content;
+    private String description;
     @ManyToMany(mappedBy = "tags")
     private Set<Post> posts = new HashSet<>();
 }

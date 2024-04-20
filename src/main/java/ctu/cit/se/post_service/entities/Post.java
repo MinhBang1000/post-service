@@ -22,6 +22,8 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(name = "post_code")
+    private String code;
     @Column(name = "post_title")
     private String title;
     @Column(name = "post_content")
