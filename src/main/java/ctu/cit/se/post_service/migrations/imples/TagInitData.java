@@ -14,19 +14,19 @@ public class TagInitData implements IBaseInitData<Tag> {
         return List.of(
                 Tag.builder()
                         .title("Nông nghiệp")
-                        .code("post-service-tag-1")
+                        .code("post-service-tag-agriculture")
                         .build(),
                 Tag.builder()
                         .title("Khoa học và công nghệ")
-                        .code("post-service-tag-1")
+                        .code("post-service-tag-technology")
                         .build(),
                 Tag.builder()
                         .title("Thủy sản")
-                        .code("post-service-tag-1")
+                        .code("post-service-tag-aquaculture")
                         .build(),
                 Tag.builder()
                         .title("Kinh tế")
-                        .code("post-service-tag-1")
+                        .code("post-service-tag-economy")
                         .build()
         );
     }
