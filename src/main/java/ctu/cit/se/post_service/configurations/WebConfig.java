@@ -1,4 +1,4 @@
-package ctu.cit.se.generalinformation.configurations;
+package ctu.cit.se.post_service.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

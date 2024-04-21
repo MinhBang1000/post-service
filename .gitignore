@@ -37,4 +37,6 @@ build/
 #*/pom.xml
 #pom.xml
 .env
-!/src/main/resources/
+/src/main/resources/application.properties
+Dockerfile
+docker-compose.yml
