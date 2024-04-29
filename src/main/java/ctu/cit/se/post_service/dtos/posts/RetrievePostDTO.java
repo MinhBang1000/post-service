@@ -25,8 +25,8 @@ public class RetrievePostDTO {
     private String content;
     @JsonProperty("postCreatedAt")
     private LocalDateTime createAt;
-    @JsonProperty("postCreatorId")
-    private String creatorId;
+    @JsonProperty("postCreatorName")
+    private String creator;
     @JsonProperty("postTags")
     private List<RetrieveTagDTO> tags;
 }

@@ -9,6 +9,8 @@ import ctu.cit.se.post_service.dtos.posts.UpdatePostDTO;
 import ctu.cit.se.post_service.entities.Post;
 import ctu.cit.se.post_service.exceptions.messages.CustomExceptionMessage;
 import ctu.cit.se.post_service.repositories.IPostRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ public class PostDAO implements IPostDAO {
     private IMapper<UpdatePostDTO, Post> updateMapper;
     @Autowired
     private IMapper<Post, RetrievePostDTO> retrieveMapper;
+    @Autowired
+    private EntityManager entityManager;
 
     @Override
     public List<RetrievePostDTO> list() {
@@ -59,8 +63,14 @@ public class PostDAO implements IPostDAO {
     }
 
     @Override
+    @Transactional
     public void delete(UUID postId) {
-        var post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException(CustomExceptionMessage.POST_NOT_FOUND));
-        postRepository.delete(post);
+        try {
+            var post = entityManager.find(Post.class, postId);
+            post.getTags().removeAll(post.getTags());
+            entityManager.remove(post);
+        } catch (Exception ex){
+            throw new IllegalArgumentException(CustomExceptionMessage.POST_NOT_FOUND);
+        }
     }
 }

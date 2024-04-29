@@ -18,8 +18,8 @@ public class CreatePostDTO {
     private String title;
     @JsonProperty("postContent")
     private String content;
-    @JsonProperty("postCreatorId")
-    private String creatorId;
+    @JsonProperty("postCreatorName")
+    private String creator;
     @JsonProperty("postCreatedAt")
     private LocalDateTime createdAt;
     @JsonProperty("postTagIds")

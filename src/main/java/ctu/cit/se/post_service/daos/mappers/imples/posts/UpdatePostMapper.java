@@ -43,7 +43,7 @@ public class UpdatePostMapper implements IMapper<UpdatePostDTO, Post> {
                 .title(Objects.isNull(source.getTitle()) ? post.getTitle() : source.getTitle())
                 .content(Objects.isNull(source.getContent()) ? post.getContent() : source.getContent())
                 .code(post.getCode())
-                .creatorId(post.getCreatorId())
+                .creator(post.getCreator())
                 .createdAt(post.getCreatedAt())
                 .tags(tags)
                 .build();

@@ -35,7 +35,7 @@ public class CreatePostMapper implements IMapper<CreatePostDTO, Post> {
         return Post.builder()
                 .title(source.getTitle())
                 .createdAt(source.getCreatedAt())
-                .creatorId(UUID.fromString(source.getCreatorId()))
+                .creator(source.getCreator())
                 .content(source.getContent())
                 .tags(tags)
                 .build();

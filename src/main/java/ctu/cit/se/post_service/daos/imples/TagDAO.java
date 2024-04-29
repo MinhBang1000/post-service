@@ -9,6 +9,8 @@ import ctu.cit.se.post_service.dtos.tags.UpdateTagDTO;
 import ctu.cit.se.post_service.entities.Tag;
 import ctu.cit.se.post_service.exceptions.messages.CustomExceptionMessage;
 import ctu.cit.se.post_service.repositories.ITagRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,8 @@ public class TagDAO implements ITagDAO {
     private IMapper<UpdateTagDTO, Tag> updateMapper;
     @Autowired
     private IMapper<Tag, RetrieveTagDTO> retrieveMapper;
+    @Autowired
+    private EntityManager entityManager;
 
     @Override
     public List<RetrieveTagDTO> list() {
@@ -60,9 +64,11 @@ public class TagDAO implements ITagDAO {
     }
 
     @Override
+    @Transactional
     public void delete(UUID tagId) {
         var tag = tagRepository.findById(tagId).orElseThrow(() -> new IllegalArgumentException(CustomExceptionMessage.TAG_NOT_FOUND));
-        tagRepository.delete(tag);
+
+        entityManager.remove(tag);
     }
 
     @Override
