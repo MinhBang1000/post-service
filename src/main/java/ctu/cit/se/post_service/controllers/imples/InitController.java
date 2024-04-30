@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -22,8 +24,7 @@ public class InitController {
     @PostMapping
     public ResponseEntity<Void> create() {
         var tagList = tagIBaseInitData.getInitData();
-        Set<Tag> tags = new HashSet<>(tagList);
-        tagDAO.createInitData(tags);
+        tagDAO.createInitData(tagList);
         return ResponseEntity.ok(null);
     }
 }

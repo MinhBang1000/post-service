@@ -20,20 +20,11 @@ public class CreatePostMapper implements IMapper<CreatePostDTO, Post> {
     private ITagRepository tagRepository;
     @Override
     public Post convert(CreatePostDTO source) {
-        Set<Tag> tags = new HashSet<>();
-        for (String strTagId : source.getTagIds()) {
-            UUID tagId = UUID.fromString(strTagId);
-            Tag foundTag = tagRepository.findById(tagId).orElse(null);
-            if (Objects.nonNull(foundTag)) {
-                tags.add(foundTag);
-            }
-        }
         return Post.builder()
                 .title(source.getTitle())
                 .createdAt(source.getCreatedAt())
                 .creator(source.getCreator())
                 .content(source.getContent())
-                .tags(tags)
                 .build();
     }
 }

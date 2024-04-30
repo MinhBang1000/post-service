@@ -19,7 +19,6 @@ public class RetrievePostMapper implements IMapper<Post, RetrievePostDTO> {
     private IMapper<Tag, RetrieveTagDTO> tagMapper;
     @Override
     public RetrievePostDTO convert(Post source) {
-        var retrieveTagDTOS = source.getTags().stream().map(tag -> tagMapper.convert(tag)).collect(Collectors.toList());
         return RetrievePostDTO.builder()
                 .id(source.getId().toString())
                 .title(source.getTitle())
@@ -27,7 +26,6 @@ public class RetrievePostMapper implements IMapper<Post, RetrievePostDTO> {
                 .content(source.getContent())
                 .createAt(source.getCreatedAt())
                 .creator(source.getCreator())
-                .tags(retrieveTagDTOS)
                 .build();
     }
 }

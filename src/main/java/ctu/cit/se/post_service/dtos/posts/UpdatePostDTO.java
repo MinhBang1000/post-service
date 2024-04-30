@@ -19,6 +19,8 @@ public class UpdatePostDTO {
     private String title;
     @JsonProperty("postContent")
     private String content;
+    @JsonProperty("postCreator")
+    private String creator;
     @JsonProperty("postTagIds")
     private List<String> tagIds;
 }

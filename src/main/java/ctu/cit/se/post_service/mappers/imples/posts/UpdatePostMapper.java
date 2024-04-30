@@ -24,26 +24,13 @@ public class UpdatePostMapper implements IMapper<UpdatePostDTO, Post> {
     @Override
     public Post convert(UpdatePostDTO source) {
         var post = postRepository.findById(UUID.fromString(source.getId())).orElseThrow(() -> new IllegalArgumentException(CustomExceptionMessage.POST_NOT_FOUND));
-        var tagIds = source.getTagIds();
-        Set<Tag> tags = new HashSet<>();
-        if (tagIds != null && !tagIds.isEmpty()) {
-            tagIds.forEach((tagId) -> {
-                try {
-                    var tag = tagRepository.findById(UUID.fromString(tagId)).get();
-                    tags.add(tag);
-                }catch (Exception e) {
-                    throw new IllegalArgumentException(CustomExceptionMessage.TAG_NOT_FOUND);
-                }
-            });
-        }
         return Post.builder()
                 .id(post.getId())
                 .title(Objects.isNull(source.getTitle()) ? post.getTitle() : source.getTitle())
                 .content(Objects.isNull(source.getContent()) ? post.getContent() : source.getContent())
                 .code(post.getCode())
-                .creator(post.getCreator())
+                .creator(Objects.isNull(source.getCreator()) ? post.getCreator() : source.getCreator())
                 .createdAt(post.getCreatedAt())
-                .tags(tags)
                 .build();
     }
 }

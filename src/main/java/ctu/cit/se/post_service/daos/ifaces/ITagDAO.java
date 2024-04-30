@@ -12,5 +12,5 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface ITagDAO extends IBaseDAO<CreateTagDTO, UpdateTagDTO, RetrieveTagDTO, CommandResDTO, UUID> {
-    void createInitData(Set<Tag> tags);
+    void createInitData(List<Tag> tags);
 }

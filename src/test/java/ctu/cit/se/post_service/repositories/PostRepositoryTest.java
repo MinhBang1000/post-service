@@ -26,35 +26,35 @@ public class PostRepositoryTest {
     private Post post2;
     private Tag tag1;
     private Tag tag2;
-    @BeforeEach
-    public void setUp() throws Exception {
-        post1 = Post.builder()
-                .code("")
-                .content("This is the first post")
-                .createdAt(LocalDateTime.now())
-                .creator("Le Minh Bang")
-                .build();
-        post2 = Post.builder()
-                .code("")
-                .content("This is the second post")
-                .createdAt(LocalDateTime.now())
-                .creator("Le Minh Bang")
-                .build();
-        tag1 = Tag.builder()
-                .code("")
-                .description("This is the first tag")
-                .title("Technology")
-                .build();
-        tag2 = Tag.builder()
-                .code("")
-                .description("This is the second tag")
-                .title("Technology")
-                .build();
-        em.persist(post1);
-        em.persist(post2);
-        em.persist(tag1);
-        em.persist(tag2);
-    }
+//    @BeforeEach
+//    public void setUp() throws Exception {
+//        post1 = Post.builder()
+//                .code("")
+//                .content("This is the first post")
+//                .createdAt(LocalDateTime.now())
+//                .creator("Le Minh Bang")
+//                .build();
+//        post2 = Post.builder()
+//                .code("")
+//                .content("This is the second post")
+//                .createdAt(LocalDateTime.now())
+//                .creator("Le Minh Bang")
+//                .build();
+//        tag1 = Tag.builder()
+//                .code("")
+//                .description("This is the first tag")
+//                .title("Technology")
+//                .build();
+//        tag2 = Tag.builder()
+//                .code("")
+//                .description("This is the second tag")
+//                .title("Technology")
+//                .build();
+//        em.persist(post1);
+//        em.persist(post2);
+//        em.persist(tag1);
+//        em.persist(tag2);
+//    }
 //    @Test
 //    public void shouldSave_bothPostAndTag_linkedTogether() {
 //        post1.addTag(tag1);

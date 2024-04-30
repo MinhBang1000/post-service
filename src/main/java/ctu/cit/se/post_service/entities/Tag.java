@@ -5,10 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -26,11 +24,9 @@ public class Tag {
     private String code;
     @Column(name = "tag_description")
     private String description;
-    @ManyToMany(mappedBy = "tags")
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     @ToString.Exclude
-    @JsonIgnore
-    private Set<Post> posts = new HashSet<>();
-
+    Set<PostTag> postTags = new HashSet<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,7 +34,6 @@ public class Tag {
         Tag tag = (Tag) o;
         return Objects.equals(id, tag.id);
     }
-
     @Override
     public int hashCode() {
         return Objects.hashCode(id);

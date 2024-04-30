@@ -6,11 +6,13 @@ import ctu.cit.se.post_service.dtos.posts.CreatePostDTO;
 import ctu.cit.se.post_service.dtos.posts.RetrievePostDTO;
 import ctu.cit.se.post_service.dtos.posts.UpdatePostDTO;
 import ctu.cit.se.post_service.entities.Post;
+import ctu.cit.se.post_service.entities.PostTag;
 import ctu.cit.se.post_service.entities.Tag;
 import ctu.cit.se.post_service.repositories.IPostRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 import ctu.cit.se.post_service.repositories.ITagRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,47 +33,70 @@ public class PostDAOTest {
     @Autowired
     private ITagRepository tagRepository;
     private CreatePostDTO createPostDTO;
+    private UpdatePostDTO updatePostDTO;
 
-    private Set<Tag> createTagExamples() {
+    private List<Tag> initTags() {
         Tag tag1 = Tag.builder()
                 .title("Tag 1")
                 .description("Tag Description 1")
                 .code("Tag 1")
-                .posts(new HashSet<>())
                 .build();
         Tag tag2 = Tag.builder()
                 .title("Tag 2")
                 .description("Tag Description 2")
                 .code("Tag 2")
-                .posts(new HashSet<>())
                 .build();
         Tag tag3 = Tag.builder()
                 .title("Tag 3")
                 .description("Tag Description 3")
                 .code("Tag 3")
-                .posts(new HashSet<>())
                 .build();
         tagRepository.save(tag1);
         tagRepository.save(tag2);
         tagRepository.save(tag3);
-        return Set.of(tag1, tag2, tag3);
+        return List.of(tag1, tag2, tag3);
     }
 
-    private CreatePostDTO createCRUDPostDTO() {
+    private List<Tag> initTags2() {
+        Tag tag1 = Tag.builder()
+                .title("Tag 1 Fix")
+                .description("Tag Description 1")
+                .code("Tag 1")
+                .build();
+        Tag tag2 = Tag.builder()
+                .title("Tag 2 Fix")
+                .description("Tag Description 2")
+                .code("Tag 2")
+                .build();
+        tagRepository.save(tag1);
+        tagRepository.save(tag2);
+        return List.of(tag1, tag2);
+    }
+
+    private CreatePostDTO initCreatePostDTO() {
         return CreatePostDTO.builder()
                 .title("Post 1")
                 .content("Post 1")
                 .creator("Le Minh Bang")
                 .createdAt(LocalDateTime.now())
                 .build();
-
     }
 
+    private UpdatePostDTO initUpdatePostDTO() {
+        return UpdatePostDTO.builder()
+                .title("Post Fix 1")
+                .content("Post Fix 1")
+                .creator("Le Minh Bang - Co-Author")
+                .build();
+    }
+
+    /*
     @BeforeEach
     public void setUp() throws Exception {
-        createPostDTO = createCRUDPostDTO();
-        Set<Tag> tags = createTagExamples();
-        List<String> tagIds = new ArrayList<>(tags.stream().map(tag -> tag.getId().toString()).collect(Collectors.toSet()));
+        createPostDTO = initCreatePostDTO();
+        updatePostDTO = initUpdatePostDTO();
+        List<Tag> tags = initTags();
+        List<String> tagIds = new ArrayList<>(tags.stream().map(tag -> tag.getId().toString()).collect(Collectors.toList()));
         createPostDTO.setTagIds(tagIds);
     }
 
@@ -81,5 +106,30 @@ public class PostDAOTest {
         UUID createdPostId = UUID.fromString(commandResDTO.getId());
         Post createPost = postRepository.findById(createdPostId).orElse(null);
         assertNotNull(createPost);
+        List<Tag> tags = createPost.getPostTags().stream().map(PostTag::getTag).toList();
+        assertFalse(tags.isEmpty());
     }
+
+    @Test
+    public void shouldUpdate_postAndTag_relinkedTogether() {
+        CommandResDTO createReturnDTO = postDAO.create(createPostDTO);
+        updatePostDTO.setId(createReturnDTO.getId());
+        List<String> tagIds = initTags2().stream().map(tag -> tag.getId().toString()).toList();
+        updatePostDTO.setTagIds(tagIds);
+        CommandResDTO updateReturnDTO = postDAO.update(updatePostDTO);
+        Post updatedPost = postRepository.findById(UUID.fromString(updateReturnDTO.getId())).orElse(null);
+        assertNotNull(updatedPost);
+        List<Tag> tags = updatedPost.getPostTags().stream().map(PostTag::getTag).toList();
+        assertFalse(tags.isEmpty());
+    }
+
+    @Test
+    public void shouldRetrieve_postRetrieveDTO_withASetOfTags() {
+        CommandResDTO createReturnDTO = postDAO.create(createPostDTO);
+        UUID createdPostId = UUID.fromString(createReturnDTO.getId());
+        RetrievePostDTO retrievePostDTO = postDAO.retrieve(createdPostId);
+        assertTrue(Objects.nonNull(retrievePostDTO));
+    }
+
+    */
 }

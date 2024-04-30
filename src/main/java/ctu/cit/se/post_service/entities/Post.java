@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -26,12 +27,9 @@ public class Post {
     private LocalDateTime createdAt;
     @Column(name = "post_creator_name")
     private String creator;
-    @ManyToMany
-    @JoinTable(name = "post_tags",
-            joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
-    )
-    private Set<Tag> tags = new HashSet<>();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Set<PostTag> postTags = new HashSet<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,7 +37,6 @@ public class Post {
         Post post = (Post) o;
         return Objects.equals(id, post.id);
     }
-
     @Override
     public int hashCode() {
         return Objects.hashCode(id);

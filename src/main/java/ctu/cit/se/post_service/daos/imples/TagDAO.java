@@ -29,8 +29,6 @@ public class TagDAO implements ITagDAO {
     private IMapper<UpdateTagDTO, Tag> updateMapper;
     @Autowired
     private IMapper<Tag, RetrieveTagDTO> retrieveMapper;
-    @Autowired
-    private EntityManager entityManager;
 
     @Override
     public List<RetrieveTagDTO> list() {
@@ -64,15 +62,15 @@ public class TagDAO implements ITagDAO {
     }
 
     @Override
-    @Transactional
     public void delete(UUID tagId) {
         var tag = tagRepository.findById(tagId).orElseThrow(() -> new IllegalArgumentException(CustomExceptionMessage.TAG_NOT_FOUND));
-
-        entityManager.remove(tag);
+        tagRepository.deleteById(tagId);
     }
 
     @Override
-    public void createInitData(Set<Tag> tags) {
-        tagRepository.saveAll(tags);
+    public void createInitData(List<Tag> tags) {
+        for (Tag tag : tags) {
+            tagRepository.save(tag);
+        }
     }
 }
