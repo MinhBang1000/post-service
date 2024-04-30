@@ -1,7 +1,7 @@
 package ctu.cit.se.post_service.daos.imples;
 
 import ctu.cit.se.post_service.daos.ifaces.ITagDAO;
-import ctu.cit.se.post_service.daos.mappers.IMapper;
+import ctu.cit.se.post_service.mappers.IMapper;
 import ctu.cit.se.post_service.dtos.others.CommandResDTO;
 import ctu.cit.se.post_service.dtos.tags.CreateTagDTO;
 import ctu.cit.se.post_service.dtos.tags.RetrieveTagDTO;

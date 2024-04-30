@@ -2,10 +2,7 @@ package ctu.cit.se.post_service.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -30,18 +27,9 @@ public class Tag {
     @Column(name = "tag_description")
     private String description;
     @ManyToMany(mappedBy = "tags")
+    @ToString.Exclude
+    @JsonIgnore
     private Set<Post> posts = new HashSet<>();
-    public void addPost(Post post) {
-        if (Objects.isNull(posts)) {
-            posts = new HashSet<>();
-        }
-        posts.add(post);
-    }
-    public void removePost(Post post) {
-        if (Objects.nonNull(posts)) {
-            posts.remove(post);
-        }
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -54,15 +42,5 @@ public class Tag {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Tag{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", code='" + code + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

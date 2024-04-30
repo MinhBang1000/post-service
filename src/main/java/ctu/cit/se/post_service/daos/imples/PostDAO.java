@@ -1,7 +1,8 @@
 package ctu.cit.se.post_service.daos.imples;
 
 import ctu.cit.se.post_service.daos.ifaces.IPostDAO;
-import ctu.cit.se.post_service.daos.mappers.IMapper;
+import ctu.cit.se.post_service.entities.Tag;
+import ctu.cit.se.post_service.mappers.IMapper;
 import ctu.cit.se.post_service.dtos.others.CommandResDTO;
 import ctu.cit.se.post_service.dtos.posts.CreatePostDTO;
 import ctu.cit.se.post_service.dtos.posts.RetrievePostDTO;
@@ -9,12 +10,15 @@ import ctu.cit.se.post_service.dtos.posts.UpdatePostDTO;
 import ctu.cit.se.post_service.entities.Post;
 import ctu.cit.se.post_service.exceptions.messages.CustomExceptionMessage;
 import ctu.cit.se.post_service.repositories.IPostRepository;
+import ctu.cit.se.post_service.repositories.ITagRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,6 +26,8 @@ import java.util.stream.Collectors;
 public class PostDAO implements IPostDAO {
     @Autowired
     private IPostRepository postRepository;
+    @Autowired
+    private ITagRepository tagRepository;
     @Autowired
     private IMapper<CreatePostDTO, Post> createMapper;
     @Autowired

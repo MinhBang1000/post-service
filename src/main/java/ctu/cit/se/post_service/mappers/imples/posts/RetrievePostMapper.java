@@ -1,13 +1,11 @@
-package ctu.cit.se.post_service.daos.mappers.imples.posts;
+package ctu.cit.se.post_service.mappers.imples.posts;
 
-import ctu.cit.se.post_service.daos.mappers.IMapper;
+import ctu.cit.se.post_service.mappers.IMapper;
 import ctu.cit.se.post_service.dtos.posts.RetrievePostDTO;
 import ctu.cit.se.post_service.dtos.tags.RetrieveTagDTO;
 import ctu.cit.se.post_service.entities.Post;
 import ctu.cit.se.post_service.entities.Tag;
-import ctu.cit.se.post_service.exceptions.messages.CustomExceptionMessage;
 import ctu.cit.se.post_service.repositories.IPostRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
