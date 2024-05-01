@@ -1,15 +1,12 @@
 package ctu.cit.se.post_service.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -27,6 +24,18 @@ public class Tag {
     private String code;
     @Column(name = "tag_description")
     private String description;
-    @ManyToMany(mappedBy = "tags")
-    private Set<Post> posts = new HashSet<>();
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    Set<PostTag> postTags = new HashSet<>();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tag tag = (Tag) o;
+        return Objects.equals(id, tag.id);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

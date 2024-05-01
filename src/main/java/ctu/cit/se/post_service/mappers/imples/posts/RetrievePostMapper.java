@@ -1,6 +1,6 @@
-package ctu.cit.se.post_service.daos.mappers.imples.posts;
+package ctu.cit.se.post_service.mappers.imples.posts;
 
-import ctu.cit.se.post_service.daos.mappers.IMapper;
+import ctu.cit.se.post_service.mappers.IMapper;
 import ctu.cit.se.post_service.dtos.posts.RetrievePostDTO;
 import ctu.cit.se.post_service.dtos.tags.RetrieveTagDTO;
 import ctu.cit.se.post_service.entities.Post;
@@ -19,15 +19,13 @@ public class RetrievePostMapper implements IMapper<Post, RetrievePostDTO> {
     private IMapper<Tag, RetrieveTagDTO> tagMapper;
     @Override
     public RetrievePostDTO convert(Post source) {
-        var tags = source.getTags();
-        var retrieveTagDTOS = tags.stream().map(tag -> tagMapper.convert(tag)).collect(Collectors.toList());
         return RetrievePostDTO.builder()
                 .id(source.getId().toString())
                 .title(source.getTitle())
                 .code(source.getCode())
+                .content(source.getContent())
                 .createAt(source.getCreatedAt())
-                .creatorId(source.getCreatorId().toString())
-                .tags(retrieveTagDTOS)
+                .creator(source.getCreator())
                 .build();
     }
 }

@@ -1,16 +1,11 @@
 package ctu.cit.se.post_service.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -30,12 +25,20 @@ public class Post {
     private String content;
     @Column(name = "post_created_at")
     private LocalDateTime createdAt;
-    @Column(name = "post_creator_id")
-    private UUID creatorId;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "post_tags",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private Set<Tag> tags = new HashSet<>();
+    @Column(name = "post_creator_name")
+    private String creator;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Set<PostTag> postTags = new HashSet<>();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(id, post.id);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

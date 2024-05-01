@@ -1,7 +1,7 @@
 package ctu.cit.se.post_service.daos.imples;
 
 import ctu.cit.se.post_service.daos.ifaces.ITagDAO;
-import ctu.cit.se.post_service.daos.mappers.IMapper;
+import ctu.cit.se.post_service.mappers.IMapper;
 import ctu.cit.se.post_service.dtos.others.CommandResDTO;
 import ctu.cit.se.post_service.dtos.tags.CreateTagDTO;
 import ctu.cit.se.post_service.dtos.tags.RetrieveTagDTO;
@@ -9,6 +9,8 @@ import ctu.cit.se.post_service.dtos.tags.UpdateTagDTO;
 import ctu.cit.se.post_service.entities.Tag;
 import ctu.cit.se.post_service.exceptions.messages.CustomExceptionMessage;
 import ctu.cit.se.post_service.repositories.ITagRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,11 +64,13 @@ public class TagDAO implements ITagDAO {
     @Override
     public void delete(UUID tagId) {
         var tag = tagRepository.findById(tagId).orElseThrow(() -> new IllegalArgumentException(CustomExceptionMessage.TAG_NOT_FOUND));
-        tagRepository.delete(tag);
+        tagRepository.deleteById(tagId);
     }
 
     @Override
-    public void createInitData(Set<Tag> tags) {
-        tagRepository.saveAll(tags);
+    public void createInitData(List<Tag> tags) {
+        for (Tag tag : tags) {
+            tagRepository.save(tag);
+        }
     }
 }
