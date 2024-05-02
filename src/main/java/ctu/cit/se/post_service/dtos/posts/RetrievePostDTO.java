@@ -23,6 +23,8 @@ public class RetrievePostDTO {
     private String title;
     @JsonProperty("postContent")
     private String content;
+    @JsonProperty("postAvatar")
+    private String avatar;
     @JsonProperty("postCreatedAt")
     private LocalDateTime createAt;
     @JsonProperty("postCreatorName")

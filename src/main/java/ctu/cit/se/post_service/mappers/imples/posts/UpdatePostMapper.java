@@ -29,6 +29,7 @@ public class UpdatePostMapper implements IMapper<UpdatePostDTO, Post> {
                 .title(Objects.isNull(source.getTitle()) ? post.getTitle() : source.getTitle())
                 .content(Objects.isNull(source.getContent()) ? post.getContent() : source.getContent())
                 .code(post.getCode())
+                .avatar(Objects.isNull(source.getAvatar()) ? post.getAvatar() : source.getAvatar())
                 .creator(Objects.isNull(source.getCreator()) ? post.getCreator() : source.getCreator())
                 .createdAt(post.getCreatedAt())
                 .build();

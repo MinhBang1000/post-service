@@ -18,6 +18,8 @@ public class CreatePostDTO {
     private String title;
     @JsonProperty("postContent")
     private String content;
+    @JsonProperty("postAvatar")
+    private String avatar;
     @JsonProperty("postCreatorName")
     private String creator;
     @JsonProperty("postCreatedAt")
