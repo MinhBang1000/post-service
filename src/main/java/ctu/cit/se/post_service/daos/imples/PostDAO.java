@@ -46,7 +46,7 @@ public class PostDAO implements IPostDAO {
 
     @Override
     public List<RetrievePostDTO> list() {
-        return postRepository.findAll().stream().map((post) -> {
+        return postRepository.findAllByOrderByCreatedAtDesc().stream().map((post) -> {
             var retrievePostDTO = retrieveMapper.convert(post);
             retrievePostDTO.setTags(getAllTags(post));
             return retrievePostDTO;

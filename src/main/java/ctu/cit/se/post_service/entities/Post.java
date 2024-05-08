@@ -21,8 +21,10 @@ public class Post {
     private String code;
     @Column(name = "post_title")
     private String title;
-    @Column(name = "post_content")
+    @Column(name = "post_content", columnDefinition = "TEXT")
     private String content;
+    @Column(name = "post_avatar", columnDefinition = "TEXT")
+    private String avatar;
     @Column(name = "post_created_at")
     private LocalDateTime createdAt;
     @Column(name = "post_creator_name")

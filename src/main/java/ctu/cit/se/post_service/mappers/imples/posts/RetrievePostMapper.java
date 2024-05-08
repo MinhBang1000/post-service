@@ -24,6 +24,7 @@ public class RetrievePostMapper implements IMapper<Post, RetrievePostDTO> {
                 .title(source.getTitle())
                 .code(source.getCode())
                 .content(source.getContent())
+                .avatar(source.getAvatar())
                 .createAt(source.getCreatedAt())
                 .creator(source.getCreator())
                 .build();

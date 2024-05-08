@@ -10,4 +10,5 @@ import java.util.UUID;
 @Repository
 public interface IPostRepository extends JpaRepository<Post, UUID> {
     List<Post> findByCode(String code);
+    List<Post> findAllByOrderByCreatedAtDesc();
 }
