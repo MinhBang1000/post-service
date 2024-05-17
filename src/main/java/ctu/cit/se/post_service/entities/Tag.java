@@ -18,11 +18,11 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name = "tag_title")
+    @Column(name = "tag_title", columnDefinition = "varchar(250) not null")
     private String title;
     @Column(name = "tag_code")
     private String code;
-    @Column(name = "tag_description")
+    @Column(name = "tag_description", columnDefinition = "varchar(250) not null")
     private String description;
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     @ToString.Exclude

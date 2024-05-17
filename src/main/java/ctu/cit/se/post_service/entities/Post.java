@@ -19,15 +19,15 @@ public class Post {
     private UUID id;
     @Column(name = "post_code")
     private String code;
-    @Column(name = "post_title")
+    @Column(name = "post_title", columnDefinition = "varchar(250) not null")
     private String title;
-    @Column(name = "post_content", columnDefinition = "TEXT")
+    @Column(name = "post_content", columnDefinition = "text")
     private String content;
-    @Column(name = "post_avatar", columnDefinition = "TEXT")
+    @Column(name = "post_avatar", columnDefinition = "text")
     private String avatar;
     @Column(name = "post_created_at")
     private LocalDateTime createdAt;
-    @Column(name = "post_creator_name")
+    @Column(name = "post_creator_name", columnDefinition = "varchar(250) not null")
     private String creator;
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     @ToString.Exclude
