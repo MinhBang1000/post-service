@@ -27,6 +27,7 @@ public class RetrievePostMapper implements IMapper<Post, RetrievePostDTO> {
                 .avatar(source.getAvatar())
                 .createAt(source.getCreatedAt())
                 .creator(source.getCreator())
+                .approved(source.getApproved())
                 .build();
     }
 }

@@ -25,4 +25,6 @@ public class UpdatePostDTO {
     private String creator;
     @JsonProperty("postTagIds")
     private List<String> tagIds;
+    @JsonProperty("postApproved")
+    private Boolean approved;
 }

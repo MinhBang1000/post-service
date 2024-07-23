@@ -17,6 +17,8 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(name = "post_approved")
+    private Boolean approved;
     @Column(name = "post_code")
     private String code;
     @Column(name = "post_title", columnDefinition = "varchar(250) not null")

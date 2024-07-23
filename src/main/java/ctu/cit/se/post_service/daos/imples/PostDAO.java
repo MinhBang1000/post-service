@@ -53,6 +53,7 @@ public class PostDAO implements IPostDAO {
         }).collect(Collectors.toList());
     }
 
+
     @Override
     @Transactional
     public CommandResDTO create(CreatePostDTO createPostDTO) {
@@ -77,11 +78,13 @@ public class PostDAO implements IPostDAO {
         var updatedPost = postRepository.save(post);
         postTagRepository.deleteAllByPost(updatedPost);
         postTagRepository.flush();
-        for (String tagId : updatePostDTO.getTagIds()) {
-            var tag = tagRepository.findById(UUID.fromString(tagId)).orElse(null);
-            if (Objects.nonNull(tag)) {
-                var postTag = PostTag.builder().post(updatedPost).tag(tag).build();
-                postTagRepository.save(postTag);
+        if (Objects.nonNull(updatePostDTO.getTagIds())){
+            for (String tagId : updatePostDTO.getTagIds()) {
+                var tag = tagRepository.findById(UUID.fromString(tagId)).orElse(null);
+                if (Objects.nonNull(tag)) {
+                    var postTag = PostTag.builder().post(updatedPost).tag(tag).build();
+                    postTagRepository.save(postTag);
+                }
             }
         }
         return CommandResDTO.builder()
@@ -101,5 +104,14 @@ public class PostDAO implements IPostDAO {
     public void delete(UUID postId) {
         var post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException(CustomExceptionMessage.POST_NOT_FOUND));
         postRepository.deleteById(postId);
+    }
+
+    @Override
+    public List<RetrievePostDTO> listApprovedPosts() {
+        return postRepository.findAllByOrderByCreatedAtDesc().stream().filter(Post::getApproved).map((post) -> {
+            var retrievePostDTO = retrieveMapper.convert(post);
+            retrievePostDTO.setTags(getAllTags(post));
+            return retrievePostDTO;
+        }).collect(Collectors.toList());
     }
 }
