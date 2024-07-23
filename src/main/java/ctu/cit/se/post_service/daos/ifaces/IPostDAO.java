@@ -6,8 +6,9 @@ import ctu.cit.se.post_service.dtos.posts.CreatePostDTO;
 import ctu.cit.se.post_service.dtos.posts.RetrievePostDTO;
 import ctu.cit.se.post_service.dtos.posts.UpdatePostDTO;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface IPostDAO extends IBaseDAO<CreatePostDTO, UpdatePostDTO, RetrievePostDTO, CommandResDTO, UUID> {
-
+    List<RetrievePostDTO> listApprovedPosts();
 }

@@ -31,4 +31,6 @@ public class RetrievePostDTO {
     private String creator;
     @JsonProperty("postTags")
     private List<RetrieveTagDTO> tags;
+    @JsonProperty("postApproved")
+    private boolean approved;
 }

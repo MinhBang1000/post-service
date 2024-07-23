@@ -26,6 +26,11 @@ public class PostController implements IPostController {
     @Override
     @GetMapping
     public ResponseEntity<List<RetrievePostDTO>> list() {
+        return ResponseEntity.ok(postDAO.listApprovedPosts());
+    }
+
+    @GetMapping("/all-posts")
+    public ResponseEntity<List<RetrievePostDTO>> listAllPost() {
         return ResponseEntity.ok(postDAO.list());
     }
 

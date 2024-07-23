@@ -26,6 +26,7 @@ public class CreatePostMapper implements IMapper<CreatePostDTO, Post> {
                 .creator(source.getCreator())
                 .avatar(source.getAvatar())
                 .content(source.getContent())
+                .approved(false)
                 .build();
     }
 }
